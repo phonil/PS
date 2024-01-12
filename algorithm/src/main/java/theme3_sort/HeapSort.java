@@ -1,4 +1,4 @@
-package theme3;
+package theme3_sort;
 
 public class HeapSort {
 

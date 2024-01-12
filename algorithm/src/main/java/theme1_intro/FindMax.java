@@ -1,4 +1,4 @@
-package theme1;
+package theme1_intro;
 
 public class FindMax {
 
