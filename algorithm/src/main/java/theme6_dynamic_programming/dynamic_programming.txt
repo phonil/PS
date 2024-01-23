@@ -3,6 +3,9 @@
 
 # 개념도 다시 보기
 
-# 다시 풀 것들
-1. Rod Cutting
-2. Matrix Multiplication
+# DP
+최적해
+-> 최적해의 루틴 및 패턴
+-> 초기 조건 정립 (ex> 행렬에서 행과 열의 첫 줄)
+
+
