@@ -1,4 +1,4 @@
-package bfs;
+package baaar.bfs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
