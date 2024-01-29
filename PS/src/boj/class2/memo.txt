@@ -1,0 +1,22 @@
+#
+B15829 : Hashing
+B2775 부녀회장
+B2869 달팽이
+B10989 counting sort
+
+
+##
+https://jeonyeohun.tistory.com/103
+counting sort : 숫자 등장 횟수를 세어준 후 정렬
+O(N)
+but 메모리 낭비가 심함
+
+++ Quick sort : O(NlogN) or O(N^2)
+
+##
+스터디 때 이야기 해 볼 것들
+
+https://st-lab.tistory.com/159
+* B11050 이항계수
+- 수학적 풀이
+- 수학적 규칙을 이용한 (파스칼) recursion && dynamic programming
