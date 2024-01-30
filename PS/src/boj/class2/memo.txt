@@ -4,6 +4,20 @@ B2775 부녀회장
 B2869 달팽이
 B10989 counting sort
 
+#
+S1181 : 정렬
+- Arrays.sort()
+- comparator
+- compareTo()
+S1436 : 브루트포스
+https://st-lab.tistory.com/103
+
+#
+S2751 : 정렬 2
+- TimSort :: Collections.sort()
+-- Arrays.sort()는 quicksort임
+https://st-lab.tistory.com/106
+https://st-lab.tistory.com/276 : 팀 정렬
 
 ##
 https://jeonyeohun.tistory.com/103
