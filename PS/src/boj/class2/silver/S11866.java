@@ -1,4 +1,4 @@
-package boj.class2;
+package boj.class2.silver;
 
 import java.io.IOException;
 import java.util.LinkedList;

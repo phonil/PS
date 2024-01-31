@@ -1,10 +1,10 @@
-package boj.class2;
+package boj.class2.silver;
 
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Scanner;
 
-public class S11651 {
+public class S11650 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -20,13 +20,12 @@ public class S11651 {
         Arrays.sort(arr, new Comparator<int[]>() {
             @Override
             public int compare(int[] x1, int[] x2) {
-                if (x1[1] == x2[1])
-                    return x1[0] - x2[0];
-                else
+                if (x1[0] == x2[0])
                     return x1[1] - x2[1];
+                else
+                    return x1[0] - x2[0];
             }
         });
-
         for (int i = 0; i < N; i++) {
             System.out.println(arr[i][0] + " " + arr[i][1]);
         }

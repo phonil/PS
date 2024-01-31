@@ -1,4 +1,4 @@
-package boj.class2;
+package boj.class2.bronze;
 
 import java.util.Scanner;
 

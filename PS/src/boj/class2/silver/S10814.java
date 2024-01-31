@@ -1,4 +1,4 @@
-package boj.class2;
+package boj.class2.silver;
 
 import java.io.BufferedReader;
 import java.io.IOException;

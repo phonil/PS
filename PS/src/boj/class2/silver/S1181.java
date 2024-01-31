@@ -1,4 +1,4 @@
-package boj.class2;
+package boj.class2.silver;
 
 import java.util.Arrays;
 import java.util.Comparator;
