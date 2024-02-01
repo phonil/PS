@@ -28,7 +28,20 @@ public class S2839 {
         Scanner sc = new Scanner(System.in);
 
         int N = sc.nextInt();
-        int ans = -1;
+        int ans = 0;
 
+        while (N >= 0) {
+            if (N % 5 == 0) {
+                ans += N / 5;
+                break;
+            }
+            if (N < 3) {
+                ans = -1;
+                break;
+            }
+            N -= 3;
+            ans++;
+        }
+        System.out.println(ans);
     }
 }
