@@ -21,28 +21,35 @@ https://st-lab.tistory.com/276 : 팀 정렬
 
 #
 S11866 : Queue
-S1018 : 브루트포스 (체스판)
+S1018 : 브루트포스 (체스판) : OK..
 S2839 : 그리디 (설탕) : OK
-S10816 : 이분 탐색 (숫자카드 2)
-
+S10816 : 이분 탐색 (숫자카드 2) : OK..
+S1966 : 큐 (프린터 큐)
+S1874 : 스택 (스택 수열) :: 문제 이해..!!
+S10866 : Deque (덱) :: arr로 구현하기..
+- https://st-lab.tistory.com/211
 
 --------------------------------------------------------------
 ##
-https://jeonyeohun.tistory.com/103
+https://st-lab.tistory.com/104
 counting sort : 숫자 등장 횟수를 세어준 후 정렬
 O(N)
 but 메모리 낭비가 심함
 
 ++ Quick sort : O(NlogN) or O(N^2)
 
-
 --------------------------------------------------------------
 ##
 스터디 때 이야기 해 볼 것들
 
+
+** B11050 이항계수
 https://st-lab.tistory.com/159
-* B11050 이항계수
 - 수학적 풀이
 - 수학적 규칙을 이용한 (파스칼) recursion && dynamic programming
 
-* + Arrays.sort() : Comparator ??
+** + Arrays.sort() : Comparator ??
+
+** 소수 판별 - 에라토스테네스의 체
+https://propercoding.tistory.com/182
+- 일반 풀이로 하면 시간 초과..
