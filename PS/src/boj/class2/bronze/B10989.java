@@ -2,6 +2,8 @@ package boj.class2.bronze;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class B10989 {
 

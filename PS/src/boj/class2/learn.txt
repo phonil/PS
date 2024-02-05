@@ -14,9 +14,10 @@ Arrays.sort(arr, new Comparator<String>() {
 :: 이차원 배열의 경우..에도 비슷한 느낌으로 가능! String s1 -> String[] s1 이런 느낌으로 똑같이 쓰면 됨
 
 ## 정렬
-- TimSort : Collections.sort()
-- QuickSort : Arrays.sort()
-- CountingSort
+- TimSort : Collections.sort() : nlogn
+- QuickSort : Arrays.sort() : nlogn / n^2
+- CountingSort : n + k
+    - https://st-lab.tistory.com/104
 
 ## 소수 판별 - 에라토스테네스의 체
 https://propercoding.tistory.com/182
@@ -25,5 +26,9 @@ https://propercoding.tistory.com/182
 
 ## 이분 탐색
 https://minhamina.tistory.com/127
+- 수 하나 찾기
+https://velog.io/@junhok82/lowerbound-upperbound
+- 중복 수 있는 경우 범위 찾기
+    - upper_bound, lower_bound
 
 ##
