@@ -100,14 +100,57 @@ public class G4179 {
                 dist2[i][j] = -1;
             }
         }
-
         // 구현
+        // 1. Queue, dist Fill
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (maze[i][j] == 'F') {
+                    dist1[i][j] = 0;
+                    queue1.offer(new Pair(i, j));
+                }
+                if (maze[i][j] == 'J') {
+                    dist2[i][j] = 0;
+                    queue2.offer(new Pair(i, j));
+                }
+            }
+        }
 
-        // Queue, dist Fill
+        // 2. 불 DFS
+        while (!queue1.isEmpty()) {
+            Pair pair = queue1.poll();
+            for (int i = 0; i < 4; i++) {
+                int nx = pair.x + dx[i];
+                int ny = pair.y + dy[i];
+                if (nx < 0 || ny < 0 || nx >= R || ny >= C)
+                    continue;
+                if (dist1[nx][ny] >= 0 || maze[nx][ny] == '#')
+                    continue;
 
-        // 불 DFS
+                dist1[nx][ny] = dist1[pair.x][pair.y] + 1;
+                queue1.offer(new Pair(nx, ny));
+            }
+        }
 
-        // 지훈 BFS
+        // 3. 지훈 BFS
+        while (!queue2.isEmpty()) {
+            Pair pair = queue2.poll();
+            for (int i = 0; i < 4; i++) {
+                int nx = pair.x + dx[i];
+                int ny = pair.y + dy[i];
+                if (nx < 0 || ny < 0 || nx >= R || ny >= C) {
+                    System.out.println(dist2[pair.x][pair.y] + 1);
+                    return;
+                }
+                if (dist1[nx][ny] != -1 && dist1[nx][ny] <= dist2[pair.x][pair.y] + 1)
+                    continue;
+                if (maze[nx][ny] == '#' || dist2[nx][ny] >= 0)
+                    continue;
+
+                dist2[nx][ny] = dist2[pair.x][pair.y] + 1;
+                queue2.offer(new Pair(nx, ny));
+            }
+        }
+        System.out.println("IMPOSSIBLE");
     }
 
     // Pair
