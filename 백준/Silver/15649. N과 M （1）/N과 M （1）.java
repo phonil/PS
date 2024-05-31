@@ -1,7 +1,6 @@
 
 import java.util.Scanner;
 
-// N과 M (1)
 public class Main {
 
     public static int[] arr;
@@ -11,13 +10,16 @@ public class Main {
     public static int M;
 
     public static void func(int k) {
-        if (k == M) { // base condition
+
+        // base condition
+        if (k == M) {
             for (int i = 0; i < M; i++) {
                 System.out.print(arr[i] + " ");
             }
             System.out.println();
             return;
         }
+
         for (int i = 1; i <= N; i++) {
             if (!isUsed[i]) {
                 arr[k] = i;
@@ -26,6 +28,7 @@ public class Main {
                 isUsed[i] = false;
             }
         }
+
     }
 
     public static void main(String[] args) {
@@ -38,4 +41,5 @@ public class Main {
 
         func(0);
     }
+
 }
