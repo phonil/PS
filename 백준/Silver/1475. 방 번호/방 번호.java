@@ -1,26 +1,27 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        String N = sc.nextLine();
-        int[] count = new int[9]; // 0 ~ 9
-
-        for (int i = 0; i < N.length(); i++) {
-            char c = N.charAt(i);
-            if (c == '9')
-                c = '6';
-            count[Integer.parseInt(String.valueOf(c))]++;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[] nums = new int[10];
+        while (N > 0) {
+            int mod = N % 10;
+            if (mod == 9)
+                mod = 6;
+            nums[mod]++;
+            N /= 10;
         }
-        count[6] = (count[6] + 1) / 2;
-        int ans = 0;
-        for (int i = 0; i < 9; i++) {
-            if (ans < count[i])
-                ans = count[i];
+        int idx = 0;
+        nums[6] = (nums[6] - 1) / 2 + 1;
+        for (int i = 0; i < 10; i++) {
+            if (idx < nums[i])
+                idx = nums[i];
         }
-        System.out.println(ans);
+        System.out.print(idx);
     }
 }
