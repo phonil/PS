@@ -1,33 +1,25 @@
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 public class Main {
     public static StringBuilder sb = new StringBuilder();
-    public static void func(int start, int end, int n) {
+    static void recursive(int a, int b, int n) {
         if (n == 1) {
-            sb.append(start + " " + end).append('\n');
-//            System.out.println(start + " " + end);
+            sb.append(a).append(" ").append(b).append('\n');
             return;
         }
-        func(start, 6 - start - end, n - 1);
-        sb.append(start + " " + end).append('\n');
-//        System.out.println(start + " " + end);
-        func(6 - start - end, end, n - 1);
-
+        recursive(a,6 - a - b, n - 1);
+        sb.append(a).append(" ").append(b).append('\n');
+        recursive(6 - a - b, b, n - 1);
     }
 
-    public static void main(String[] args) throws Exception {
-//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-//        String s = br.readLine();
-//        int n = Integer.parseInt(s);
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        sb.append((int)(Math.pow(2, n) - 1)).append('\n');
-//        System.out.println((int)(Math.pow(2, n) - 1));
-        func(1, 3, n);
-        System.out.println(sb);
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        sb.append((1<<N) - 1).append('\n');
+        recursive(1, 3, N);
+        System.out.print(sb);
     }
 }
