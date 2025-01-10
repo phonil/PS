@@ -1,54 +1,52 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-// 쿼드트리
 public class Main {
 
-    private static int[][] video;
-    private static String ans = "";
+    static int[][] board;
+    static StringBuilder sb = new StringBuilder();
 
-    private static void recursion(int r, int c, int N) {
-        if (check(r, c, N) || N == 1) {
-            ans += video[r][c] + "";
+    static void func(int r, int c, int n) {
+        if (check(r, c, n)) {
+            sb.append(board[r][c]);
             return;
         }
-
-        int newSize = N / 2;
-
-        ans += "(";
-        recursion(r, c, newSize);
-        recursion(r, c + newSize, newSize);
-        recursion(r + newSize, c, newSize);
-        recursion(r + newSize, c + newSize, newSize);
-        ans += ")";
+        sb.append("(");
+        int bound = n / 2;
+        // 순서대로 왼쪽 위, 오른쪽 위, 왼쪽 아래, 오른쪽 아래
+        func(r, c, bound);
+        func(r, c + bound, bound);
+        func(r + bound, c, bound);
+        func(r + bound, c + bound, bound);
+        sb.append(")");
     }
 
-    private static boolean check(int r, int c, int N) {
-        int val = video[r][c];
-
-        for (int i = r; i < r + N; i++) {  // N은 늘 N/2로 재귀적으로 들어오므로 .. r + N (횟수라고 생각)
-            for (int j = c; j < c + N; j++) {
-                if (val != video[i][j])
+    static boolean check(int r, int c, int n) {
+        if (n == 0)
+            return true;
+        int start = board[r][c];
+        for (int i = r; i < r + n; i++) {
+            for (int j = c; j < c + n; j++) {
+                if (start != board[i][j])
                     return false;
             }
         }
         return true;
     }
 
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        video = new int[N][N];
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        board = new int[N][N];
         for (int i = 0; i < N; i++) {
-            String s = sc.next();
+            String line = br.readLine();
             for (int j = 0; j < N; j++) {
-                video[i][j] = s.charAt(j) - '0';
+                board[i][j] = line.charAt(j) - '0';
             }
         }
-
-        recursion(0, 0, N);
-        System.out.println(ans);
+        func(0, 0, N);
+        System.out.print(sb);
     }
 }
