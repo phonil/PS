@@ -1,68 +1,66 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-// 종이의 개수
 public class Main {
 
-    public static int[][] board;
-    public static int gray = 0; // -1
-    public static int white = 0; // 0
-    public static int black = 0; // 1
+    static int[][] board;
+    static int zero = 0;
+    static int one = 0;
+    static int minusOne = 0;
 
-    public static void recursion(int r, int c, int N) {
-        if (check(r, c, N)) {
-            if (board[r][c] == -1)
-                gray++;
-            else if (board[r][c] == 0)
-                white++;
+    static void recursion(int r, int c, int n) {
+        if (check(r, c, n)) {
+            int paperNum = board[r][c];
+            if (paperNum == -1)
+                minusOne++;
+            else if (paperNum == 0)
+                zero++;
             else
-                black++;
+                one++;
             return;
         }
+        int bound = n / 3;
+        recursion(r, c, bound);
+        recursion(r, c + bound, bound);
+        recursion(r, c + (2 * bound), bound);
 
-        int newSize = N / 3;
+        recursion(r + bound, c, bound);
+        recursion(r + bound, c + bound, bound);
+        recursion(r + bound, c + (2 * bound), bound);
 
-        recursion(r, c, newSize);
-        recursion(r, c + newSize, newSize);
-        recursion(r, c + 2 * newSize, newSize);
-
-        recursion(r + newSize, c, newSize);
-        recursion(r + newSize, c + newSize, newSize);
-        recursion(r + newSize, c + 2 * newSize, newSize);
-
-        recursion(r + 2 * newSize, c, newSize);
-        recursion(r + 2 * newSize, c + newSize, newSize);
-        recursion(r + 2 * newSize, c + 2 * newSize, newSize);
+        recursion(r + (2 * bound), c, bound);
+        recursion(r + (2 * bound), c + bound, bound);
+        recursion(r + (2 * bound), c + (2 * bound), bound);
     }
 
-    public static boolean check(int r, int c, int N) {
-        int color = board[r][c];
-
-        for (int i = r; i < r + N; i++) {
-            for (int j = c; j < c + N; j++) {
-                if (color != board[i][j])
+    static boolean check(int r, int c, int n) {
+        if (n == 0)
+            return true;
+        int start = board[r][c];
+        for (int i = r; i < r + n; i++) {
+            for (int j = c; j < c + n; j++) {
+                if (start != board[i][j])
                     return false;
             }
         }
         return true;
     }
 
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
         board = new int[N][N];
-
-        for (int i = 0; i < N; i++)
-            for (int j = 0; j < N; j++)
-                board[i][j] = sc.nextInt();
-
+        for (int i = 0; i < N; i++) {
+            String[] split = br.readLine().split(" ");
+            for (int j = 0; j < N; j++) {
+                board[i][j] = Integer.parseInt(split[j]);
+            }
+        }
         recursion(0, 0, N);
-
-        System.out.println(gray);
-        System.out.println(white);
-        System.out.println(black);
-
+        System.out.println(minusOne);
+        System.out.println(zero);
+        System.out.println(one);
     }
 }
