@@ -1,75 +1,42 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] split = br.readLine().split(" ");
+        final int F = Integer.parseInt(split[0]); // 건물 높이
+        final int S = Integer.parseInt(split[1]); // 강호 현재 위치
+        final int G = Integer.parseInt(split[2]); // 목적지
+        final int U = Integer.parseInt(split[3]); // 한 번에 위로 몇 칸
+        final int D = Integer.parseInt(split[4]); // 한 번에 아래로 몇 칸
 
-        int F = sc.nextInt(); // 건물 층
-        int S = sc.nextInt(); // 현재 강호가 있는 층
-        int G = sc.nextInt(); // 스타트링크 층
-        int U = sc.nextInt(); // 위로 U층 가는 버튼 / 맨 위면 엘리베이터는 움직이지 않음
-        int D = sc.nextInt(); // 아래로 D층 가는 버튼 / 맨 밑이면 엘리베이터는 움직이지 않음
-        
-        // Q. G층 가려면 버튼 최소 몇 번 눌러야 하는지?
-        int[] dist = new int[1000002];
-        Arrays.fill(dist, -1);
-        Queue<Integer> queue = new LinkedList<>();
-        queue.offer(S);
-        dist[S] = 0;
-
-        while (!queue.isEmpty()) {
-            Integer poll = queue.poll();
-            if (G > poll) {
-                if (U == 0)
-                    break;
-                int up = poll + U;
-                if (up > F) {
-                    if (dist[poll - D] == -1) {
-                        if (poll - D < 1)
-                            continue;
-                        up = poll - D;
-                    }
-                    else
-                        continue;
-                }
-                if (dist[up] != -1)
-                    continue;
-                queue.offer(up);
-                dist[up] = dist[poll] + 1;
-            }
-            else if (G < poll) {
-                if (D == 0)
-                    break;
-                int down = poll - D;
-                if (down < 1) {
-                    if (dist[poll + U] == -1) {
-                        if (poll + U > F)
-                            continue;
-                        down = poll + U;
-                    }
-                    else
-                        continue;
-                }
-                if (dist[down] != -1)
-                    continue;
-                queue.offer(down);
-                dist[down] = dist[poll] + 1;
-            }
-            else { // (G == poll)
-                break;
+        int[] dx = {U, -D};
+        int[] build = new int[F + 1];
+        Arrays.fill(build, -1);
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(S);
+        build[S] = 0;
+        while (!q.isEmpty()) {
+            Integer cur = q.poll();
+            for (int i = 0; i < 2; i++) {
+                int move = cur + dx[i];
+                if (move > F || move <= 0) continue;
+                if (build[move] >= 0) continue;
+                q.offer(move);
+                build[move] = build[cur] + 1;
             }
         }
-
-        if (dist[G] == -1)
+        int ans = build[G];
+        if (ans == -1)
             System.out.println("use the stairs");
         else
-            System.out.println(dist[G]);
-
-
+            System.out.println(ans);
     }
 }
