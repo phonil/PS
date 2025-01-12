@@ -1,70 +1,54 @@
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Scanner;
 
 public class Main {
+    static int[] dx = {-1, 0, 1, 0};
+    static int[] dy = {0, 1, 0, -1};
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        int N = sc.nextInt();
-        int[] dx = {-1, 0, 1, 0};
-        int[] dy = {0, -1, 0, 1};
-        int[][] map = new int[N][N];
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[][] board = new int[N][N];
         int max = 0;
         for (int i = 0; i < N; i++) {
+            String[] split = br.readLine().split(" ");
             for (int j = 0; j < N; j++) {
-                map[i][j] = sc.nextInt();
-                if (max < map[i][j])
-                    max = map[i][j];
+                board[i][j] = Integer.parseInt(split[j]);
+                if (max < board[i][j]) max = board[i][j];
             }
         }
-        int[] countArr = new int[max]; // 다 잠기는 건 할 필요 없음
+        int ans = 0;
         for (int i = 0; i < max; i++) {
-            Queue<Pair> queue = new LinkedList<>();
+            int cnt = 0;
             boolean[][] visit = new boolean[N][N];
-            // start loop
+            Queue<Pair> q = new LinkedList<>();
             for (int j = 0; j < N; j++) {
                 for (int k = 0; k < N; k++) {
-                    if (map[j][k] <= i)
-                        continue;
-                    if (visit[j][k])
-                        continue;
-
-                    queue.offer(new Pair(j, k));
+                    if (visit[j][k]) continue;
+                    if (board[j][k] <= i) continue;
+                    q.offer(new Pair(j, k));
                     visit[j][k] = true;
-
-                    while (!queue.isEmpty()) {
-                        Pair pair = queue.poll();
+                    cnt++;
+                    while (!q.isEmpty()) {
+                        Pair cur = q.poll();
                         for (int l = 0; l < 4; l++) {
-                            int nx = pair.x + dx[l];
-                            int ny = pair.y + dy[l];
-                            if (nx < 0 || ny < 0 || nx >= N || ny >= N)
-                                continue;
-                            if (visit[nx][ny])
-                                continue;
-                            if (map[nx][ny] <= i)
-                                continue;
-
-                            queue.offer(new Pair(nx, ny));
+                            int nx = cur.x + dx[l];
+                            int ny = cur.y + dy[l];
+                            if (nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+                            if (visit[nx][ny] || board[nx][ny] <= i) continue;
+                            q.offer(new Pair(nx, ny));
                             visit[nx][ny] = true;
                         }
                     }
-                    countArr[i]++;
+                    if (ans < cnt) ans = cnt;
                 }
             }
         }
-        int result = 0;
-        for (int count : countArr) {
-            if (result < count)
-                result = count;
-        }
-        System.out.println(result);
-
+        System.out.print(ans);
     }
-
     static class Pair {
         int x, y;
         public Pair(int x, int y) {
