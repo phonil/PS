@@ -1,47 +1,41 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-// N과 M (2)
 public class Main {
+    static int N, M;
+    static int[] arr;
+    static boolean[] visit;
+    static StringBuilder sb = new StringBuilder();
 
-    public static int[] arr;
-    public static boolean[] isUsed;
-
-    public static int N;
-    public static int M;
-
-    public static void func(int k) {
-        if (k == M) {
-            for (int i = 0; i < M; i++)
-                System.out.print(arr[i] + " ");
-            System.out.println();
+    static void func(int cur) {
+        if (cur == M) {
+            for (int i : arr)
+                sb.append(i).append(" ");
+            sb.append('\n');
             return;
         }
-
-        int start = 1;
-        if (k != 0)
-            start = arr[k - 1] + 1;
-
-        for (int i = start; i <= N; i++) { // 반복문 사용 이유 : 숫자가 1~N이므로 그 '수'를 표현하기 위함
-            if (!isUsed[i]) {
-                arr[k] = i;
-                isUsed[i] = true;
-                func(k + 1);
-                isUsed[i] = false;
-            }
+        int start = 0;
+        if (cur != 0)
+            start = arr[cur - 1];
+        for (int i = start + 1; i <= N; i++) {
+            if (visit[i]) continue;
+            arr[cur] = i;
+            visit[i] = true;
+            func(cur + 1);
+            visit[i] = false;
         }
-
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        N = sc.nextInt();
-        M = sc.nextInt();
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] split = br.readLine().split(" ");
+        N = Integer.parseInt(split[0]);
+        M = Integer.parseInt(split[1]);
         arr = new int[M];
-        isUsed = new boolean[N + 1];
-
+        visit = new boolean[N + 1];
         func(0);
+        System.out.print(sb);
     }
 }
