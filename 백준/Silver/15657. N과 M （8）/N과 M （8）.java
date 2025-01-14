@@ -1,44 +1,43 @@
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Main {
+    static int N, M;
+    static int[] arr, nums;
+    static StringBuilder sb = new StringBuilder();
 
-    private static int N, M;
-    private static int[] nums;
-    private static int[] arr;
-    private static StringBuilder sb = new StringBuilder();
-
-    private static void func(int k) {
-        if (k == M) {
-            for (int i = 0; i < M; i++)
-                sb.append(nums[arr[i]] + " ");
-            sb.append("\n");
+    static void func(int cur) {
+        if (cur == M) {
+            for (int i : arr)
+                sb.append(nums[i]).append(" ");
+            sb.append('\n');
             return;
         }
-
-        int start = 0;
-        if (k != 0)
-            start = arr[k - 1];
-
-        for (int i = start  ; i < N; i++) {
-            arr[k] = i;
-            func(k + 1);
+        int startIdx = 0;
+        if (cur != 0)
+            startIdx = arr[cur - 1];
+        for (int i = startIdx; i < N; i++) {
+            arr[cur] = i;
+            func(cur + 1);
         }
+
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        N = sc.nextInt();
-        M = sc.nextInt();
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] split = br.readLine().split(" ");
+        N = Integer.parseInt(split[0]);
+        M = Integer.parseInt(split[1]);
         arr = new int[M];
         nums = new int[N];
-
+        String[] line = br.readLine().split(" ");
         for (int i = 0; i < N; i++)
-            nums[i] = sc.nextInt();
+            nums[i] = Integer.parseInt(line[i]);
         Arrays.sort(nums);
         func(0);
-        System.out.println(sb);
+        System.out.print(sb);
     }
 }
