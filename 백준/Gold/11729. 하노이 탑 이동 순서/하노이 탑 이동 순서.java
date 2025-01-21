@@ -4,22 +4,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static StringBuilder sb = new StringBuilder();
-    static void recursive(int a, int b, int n) {
+
+    static int N;
+    static int cnt = 0;
+    static StringBuilder sb = new StringBuilder();
+    static void func(int st, int dest, int n) {
         if (n == 1) {
-            sb.append(a).append(" ").append(b).append('\n');
+            sb.append(st).append(" ").append(dest).append('\n');
+            cnt++;
             return;
         }
-        recursive(a,6 - a - b, n - 1);
-        sb.append(a).append(" ").append(b).append('\n');
-        recursive(6 - a - b, b, n - 1);
+        func(st, 6 - st - dest, n - 1);
+        func(st, dest, 1);
+        func(6 - st - dest, dest, n - 1);
     }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        sb.append((1<<N) - 1).append('\n');
-        recursive(1, 3, N);
+        N = Integer.parseInt(br.readLine());
+        func(1, 3, N);
+        System.out.println(cnt);
         System.out.print(sb);
     }
 }
