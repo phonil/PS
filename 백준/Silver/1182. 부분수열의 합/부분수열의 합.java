@@ -1,40 +1,35 @@
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-// 부분 수열의 합
 public class Main {
-    // 백트래킹 : 상태공간트리 - 포함하는 경우와 포함하지 않는 경우
 
-    private static int N, S;
-    private static int[] arr;
-    private static int count = 0;
+    static int N, S;
+    static int[] nums;
+    static int cnt = 0;
 
-    public static void func(int cur, int total) {
+    static void func(int cur, int sum) {
         if (cur == N) {
-            if (total == S)
-                count++;
+            if (sum == S) cnt++;
             return;
         }
-
-        func(cur + 1, total);
-        func(cur + 1, total + arr[cur]);
-
+        func(cur + 1, sum + nums[cur]);
+        func(cur + 1, sum);
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        N = sc.nextInt();
-        S = sc.nextInt();
-
-        arr = new int[N];
-        for (int i = 0; i < N; i++) {
-            arr[i] = sc.nextInt();
-        }
-
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] split = br.readLine().split(" ");
+        N = Integer.parseInt(split[0]);
+        S = Integer.parseInt(split[1]);
+        nums = new int[N];
+        String[] line = br.readLine().split(" ");
+        for (int i = 0; i < N; i++)
+            nums[i] = Integer.parseInt(line[i]);
         func(0, 0);
         if (S == 0)
-            count--;
-        System.out.println(count);
+            cnt--;
+        System.out.print(cnt);
     }
 }
