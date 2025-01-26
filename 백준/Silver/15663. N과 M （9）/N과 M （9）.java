@@ -8,25 +8,25 @@ public class Main {
 
     static int N, M;
     static int[] arr, nums;
-    static boolean[] isUsed;
+    static boolean[] visit;
     static StringBuilder sb = new StringBuilder();
 
     static void func(int cur) {
         if (cur == M) {
             for (int i : arr)
-                sb.append(i).append(" ");
+                sb.append(nums[i]).append(" ");
             sb.append('\n');
             return;
         }
         int tmp = 0;
         for (int i = 0; i < N; i++) {
-            if (isUsed[i]) continue;
+            if (visit[i]) continue;
             if (tmp == nums[i]) continue;
-            arr[cur] = nums[i];
-            isUsed[i] = true;
+            arr[cur] = i;
+            visit[i] = true;
             tmp = nums[i];
             func(cur + 1);
-            isUsed[i] = false;
+            visit[i] = false;
         }
     }
 
@@ -37,7 +37,7 @@ public class Main {
         M = Integer.parseInt(split[1]);
         arr = new int[M];
         nums = new int[N];
-        isUsed = new boolean[N];
+        visit = new boolean[N];
         String[] line = br.readLine().split(" ");
         for (int i = 0; i < N; i++)
             nums[i] = Integer.parseInt(line[i]);
