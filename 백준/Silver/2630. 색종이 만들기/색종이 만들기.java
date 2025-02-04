@@ -4,31 +4,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static int[][] board;
-    static int white = 0;
-    static int blue = 0;
+    static int N;
+    static int[][] map;
+    static int whiteCnt, blueCnt = 0;
 
-    public static void func(int r, int c, int n) {
-        if (check(r, c, n)) {
-            int startNum = board[r][c];
-            if (startNum == 0) white++;
-            else blue++;
+    static void func(int r, int c, int k) {
+        if (check(r, c, k)) {
+            if (map[r][c] == 1) blueCnt++;
+            else whiteCnt++;
             return;
         }
-        int bound = n / 2;
-        func(r, c, bound);
-        func(r, c + bound, bound);
-        func(r + bound, c, bound);
-        func(r + bound, c + bound, bound);
+
+        int half = k / 2;
+        func(r, c, half);
+        func(r, c + half, half);
+        func(r + half, c, half);
+        func(r + half, c + half, half);
     }
 
-    public static boolean check(int r, int c, int n) {
-        if (n == 1) {
-            return true;
-        }
-        for (int i = r; i < r + n; i++) {
-            for (int j = c; j < c + n; j++) {
-                if (board[r][c] != board[i][j]) return false;
+    static boolean check(int r, int c, int k) {
+        for (int i = r; i < r + k; i++) {
+            for (int j = c; j < c + k; j++) {
+                if (map[r][c] != map[i][j])
+                    return false;
             }
         }
         return true;
@@ -36,16 +34,16 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        board = new int[N][N];
+        N = Integer.parseInt(br.readLine());
+        map = new int[N][N];
         for (int i = 0; i < N; i++) {
-            String[] split = br.readLine().split(" ");
+            String[] line = br.readLine().split(" ");
             for (int j = 0; j < N; j++) {
-                board[i][j] = Integer.parseInt(split[j]);
+                map[i][j] = Integer.parseInt(line[j]);
             }
         }
         func(0, 0, N);
-        System.out.println(white);
-        System.out.println(blue);
+        System.out.println(whiteCnt);
+        System.out.print(blueCnt);
     }
 }
