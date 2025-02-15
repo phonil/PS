@@ -8,13 +8,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        boolean[] arr = new boolean[2002];
-        int half = 1000;
-        for (int i = 0; i < N; i++)
-            arr[Integer.parseInt(br.readLine()) + half] = true;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i])
-                System.out.println(i - half);
+        boolean[] cnt = new boolean[2001];
+        int HALF = 1000;
+        for (int i = 0; i < N; i++) {
+            int num = Integer.parseInt(br.readLine());
+            cnt[num + HALF] = true;
+        }
+        for (int i = 0; i < 2001; i++) {
+            if (cnt[i])
+                System.out.println(i - HALF);
         }
     }
 }
