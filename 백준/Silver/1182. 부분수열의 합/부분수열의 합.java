@@ -7,6 +7,7 @@ public class Main {
 
     static int N, S;
     static int[] nums;
+    static int sum = 0;
     static int cnt = 0;
 
     static void func(int cur, int sum) {
@@ -24,12 +25,11 @@ public class Main {
         N = Integer.parseInt(split[0]);
         S = Integer.parseInt(split[1]);
         nums = new int[N];
-        String[] line = br.readLine().split(" ");
-        for (int i = 0; i < N; i++)
-            nums[i] = Integer.parseInt(line[i]);
+        split = br.readLine().split(" ");
+        for (int i = 0; i < N; i++) 
+            nums[i] = Integer.parseInt(split[i]);
         func(0, 0);
-        if (S == 0)
-            cnt--;
+        if (S == 0) cnt--;
         System.out.print(cnt);
     }
 }
