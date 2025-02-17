@@ -5,38 +5,26 @@ import java.io.InputStreamReader;
 
 public class Main {
 
-    static int N;
-    static int[][] D;
-    static int[] R, G, B;
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        N = Integer.parseInt(br.readLine());
-        D = new int[N][3];
-        R = new int[N];
-        G = new int[N];
-        B = new int[N];
-        for (int i = 0; i < N; i++) {
-            String[] line = br.readLine().split(" ");
+        int N = Integer.parseInt(br.readLine());
+        int[][] s = new int[N + 1][3];
+        for (int i = 1; i <= N; i++) {
+            String[] split = br.readLine().split(" ");
+            s[i][0] = Integer.parseInt(split[0]);
+            s[i][1] = Integer.parseInt(split[1]);
+            s[i][2] = Integer.parseInt(split[2]);
+        }
+        int[][] d = new int[N + 1][3];
+        for (int i = 0; i < 3; i++)
+            d[1][i] = s[1][i];
+        for (int i = 2; i <= N; i++) {
             for (int j = 0; j < 3; j++) {
-                D[i][j] = Integer.parseInt(line[j]);
+                d[i][j] = Math.min(d[i-1][(j+1) % 3], d[i-1][(j+2) % 3]) + s[i][j];
             }
-            R[i] = Integer.parseInt(line[0]);
-            G[i] = Integer.parseInt(line[1]);
-            B[i] = Integer.parseInt(line[2]);
         }
-        D[0][0] = R[0];
-        D[0][1] = G[0];
-        D[0][2] = B[0];
-        for (int i = 1; i < N; i++) {
-            D[i][0] = Math.min(D[i - 1][1], D[i - 1][2]) + R[i];
-            D[i][1] = Math.min(D[i - 1][0], D[i - 1][2]) + G[i];
-            D[i][2] = Math.min(D[i - 1][0], D[i - 1][1]) + B[i];
-        }
-        int min = 1000 * 1000;
-        min = Math.min(min, D[N - 1][0]);
-        min = Math.min(min, D[N - 1][1]);
-        min = Math.min(min, D[N - 1][2]);
+        int min = Math.min(d[N][0], d[N][1]);
+        min = Math.min(min, d[N][2]);
         System.out.print(min);
     }
 }
