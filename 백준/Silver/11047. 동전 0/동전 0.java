@@ -10,13 +10,13 @@ public class Main {
         String[] split = br.readLine().split(" ");
         int N = Integer.parseInt(split[0]);
         int K = Integer.parseInt(split[1]);
-        int[] V = new int[N];
+        int[] arr = new int[N];
         for (int i = 0; i < N; i++)
-            V[i] = Integer.parseInt(br.readLine());
+            arr[i] = Integer.parseInt(br.readLine());
         int cnt = 0;
         for (int i = N - 1; i >= 0; i--) {
-            cnt += K / V[i];
-            K %= V[i];
+            cnt += K / arr[i];
+            K %= arr[i];
         }
         System.out.print(cnt);
     }
