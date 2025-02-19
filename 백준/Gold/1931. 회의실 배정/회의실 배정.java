@@ -10,29 +10,29 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
-        Pair[] meeting = new Pair[N];
+        Meeting[] meetings = new Meeting[N];
         for (int i = 0; i < N; i++) {
-            String[] line = br.readLine().split(" ");
-            int start = Integer.parseInt(line[0]);
-            int end = Integer.parseInt(line[1]);
-            meeting[i] = new Pair(start, end);
+            String[] split = br.readLine().split(" ");
+            int st = Integer.parseInt(split[0]);
+            int en = Integer.parseInt(split[1]);
+            meetings[i] = new Meeting(st, en);
         }
-        Arrays.sort(meeting, Comparator.comparingInt((Pair m) -> m.y).thenComparingInt(m -> m.x));
+        Arrays.sort(meetings, Comparator.comparingInt((Meeting m) -> m.en).thenComparingInt((Meeting m) -> m.st));
         int cnt = 1;
-        Pair now = meeting[0];
+        Meeting now = meetings[0];
         for (int i = 1; i < N; i++) {
-            if (now.y > meeting[i].x) continue;
-            now = meeting[i];
+            Meeting meet = meetings[i];
+            if (now.en > meet.st) continue;
+            now = meet;
             cnt++;
         }
         System.out.print(cnt);
     }
-
-    static class Pair {
-        int x, y;
-        public Pair(int x, int y) {
-            this.x = x;
-            this.y = y;
+    static class Meeting {
+        int st, en;
+        public Meeting(int st, int en) {
+            this.st = st;
+            this.en = en;
         }
     }
 }
