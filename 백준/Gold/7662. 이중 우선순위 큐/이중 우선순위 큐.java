@@ -22,14 +22,12 @@ public class Main {
                 else {
                     if (map.isEmpty())
                         continue;
-                    if (num == -1) {
-                        if (map.get(map.firstKey()) == 1) map.remove(map.firstKey());
-                        else map.put(map.firstKey(), map.get(map.firstKey()) - 1);
-                    }
-                    else {
-                        if (map.get(map.lastKey()) == 1) map.remove(map.lastKey());
-                        else map.put(map.lastKey(), map.get(map.lastKey()) - 1);
-                    }
+                    int key;
+                    if (num == -1) key = map.firstKey();
+                    else key = map.lastKey();
+                    
+                    if (map.get(key) == 1) map.remove(key);
+                    else map.put(key, map.get(key) - 1);
                 }
             }
             if (map.isEmpty())
