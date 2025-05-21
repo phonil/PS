@@ -15,7 +15,7 @@ public class Main {
         while (T --> 0) {
             String[] words = br.readLine().split(" ");
             List<String> list = Arrays.asList(words);
-            ArrayList<String> other = new ArrayList<>();
+            Set<String> other = new HashSet<>();
             while (true) {
                 String line = br.readLine();
                 if (line.equals("what does the fox say?")) break;
@@ -23,14 +23,7 @@ public class Main {
                 other.add(split[2]);
             }
             for (String s : list) {
-                boolean flag = false;
-                for (String o : other) {
-                    if (s.equals(o)) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if (!flag)
+                if (!other.contains(s))
                     sb.append(s).append(" ");
             }
             sb.append('\n');
