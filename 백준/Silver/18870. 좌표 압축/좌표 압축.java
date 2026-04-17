@@ -1,51 +1,38 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 public class Main {
 
-    static int[] arr;
-    static int[] tmp;
     static int N;
-    static List<Integer> copyArr = new ArrayList<>();
-    static int lowerIdx(int target) {
+    static int[] A, B;
+
+    static int lower_bound(int target, int[] arr) {
         int st = 0;
-        int en = copyArr.size();
+        int en = arr.length;
         while (st < en) {
             int mid = (st + en) / 2;
-            if (copyArr.get(mid) >= target) en = mid;
+            if (arr[mid] >= target) en = mid;
             else st = mid + 1;
         }
         return st;
     }
 
     public static void main(String[] args) throws IOException {
+        StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
+        A = new int[N];
+        B = new int[N];
         String[] split = br.readLine().split(" ");
-        arr = new int[N];
-        tmp = new int[N];
         for (int i = 0; i < N; i++) {
-             int num = Integer.parseInt(split[i]);
-             arr[i] = num;
-             tmp[i] = num;
+            A[i] = Integer.parseInt(split[i]); // 원본
+            B[i] = A[i];
         }
-        Arrays.sort(tmp);
-        for (int i = 0; i < N; i++) {
-            if (i == 0 || tmp[i] != tmp[i - 1])
-                copyArr.add(tmp[i]);
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < N; i++) {
-            int low = lowerIdx(arr[i]);
-            sb.append(low).append(" ");
-        }
+        int[] arr = Arrays.stream(B).sorted().distinct().toArray();
+        for (int i = 0; i < N; i++)
+            sb.append(lower_bound(A[i], arr)).append(" ");
         System.out.print(sb);
     }
 }
